@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="author" content="织寒"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>算法导论第二章习题</title><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/normalize/3.0.3/normalize.min.css"><link rel="stylesheet" type="text/css" href="/css/carbon.css"><script defer="defer" src="//cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script><script defer="defer" src="//cdn.jsdelivr.net/jquery.pjax/1.9.5/jquery.pjax.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.css" type="text/css" media="screen"><script defer="defer" type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>var performFancybox = true;</script><script>var doRenderMath = 'mathjax'</script><!--mathjax config similar to math.stackexchange--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true
+  }
+});</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});</script><script async type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script defer="defer" src="/js/carbon.js"></script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="container"><div id="banner"><h1 id="site-title"><a href="/">织寒的博客</a></h1><p id="site-subtitle"></p></div><div id="content"><div class="meta"><h2 class="article-title"><a href="/2022/04/18/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E7%AC%AC%E4%BA%8C%E7%AB%A0%E4%B9%A0%E9%A2%98">算法导论第二章习题</a></h2><div class="article-date"><a href="javascript:void(0);" class="extra-switch">2022-04-18</a></div></div><div class="extra"><span class="Tags">Tags: 无.</span></div><div class="extra"><span class="Categories">Categories: 无.</span></div><div class="article-content"><div class="gallery"></div><h1 id="2-1"><a href="#2-1" class="headerlink" title="2.1"></a>2.1</h1><h2 id="1"><a href="#1" class="headerlink" title="1"></a>1</h2><p><img src="https://github.com/Dragonchu/Pictures/blob/main/algorithmsPractise/2.1-1.png" alt=""></p>
+<h2 id="2"><a href="#2" class="headerlink" title="2"></a>2</h2><pre><code>INSERTION-SORT(A)
+for j = 2 to A.length
+    key = A[j]
+    i = j-1
+    while i&gt;0 and A[i]&lt;key
+        A[i+1]=A[i]
+        i=i-1
+    A[i+1]=key
+</code></pre><h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><pre><code>for i = 1 to A.length
+    if A[i]=v
+        return i
+v = NIL
+</code></pre><p>A[1..i-1]表示位置1到i-1的元素都不等于v</p>
+<p><strong>初始化：</strong>当i=1时，没有元素，自然也没有元素等于v</p>
+<p><strong>保持：</strong>每次循环会将不等于v的元素加入到A[i..i-1]中</p>
+<p><strong>终止：</strong>如果遇到A[i]=v,循环终止。如果最后i=A.length时，A[1..i-1]中元素都不等于v也就是数组中所有元素都不等于v。</p>
+<h2 id="4"><a href="#4" class="headerlink" title="4"></a>4</h2><p><strong>输入：</strong>两个二进制序列$A=<a_1,a_2,\cdots,a_n>,B=<b_1,b_2,\cdots,b_n>$</p>
+<p><strong>输出：</strong>二进制序列$C=<c_1,c_2,\cdots,c_n,c_n+1>，C=A+B$</p>
+<pre><code>carry = 0
+for i = n downto 1
+    C[i] = A[i]^B[i]^carry
+    if(A[i]+B[i]+carry&gt;1)
+        carry = 1
+    else
+        carry = 0
+c[1] = carry
+</code></pre><h1 id="2-2"><a href="#2-2" class="headerlink" title="2.2"></a>2.2</h1><h2 id="1-1"><a href="#1-1" class="headerlink" title="1"></a>1</h2><p>$\theta(n^3)$</p>
+<h2 id="2-1"><a href="#2-1" class="headerlink" title="2"></a>2</h2><pre><code>for i = 1 to A.length-1
+    min = i
+    key = A[i]
+    for j = i+1 to A.length
+        if A[j]&lt;A[min]
+            min = j
+    A[i] = A[min]
+    A[min] = key
+</code></pre><p><strong>循环不变式:</strong>A[1..i]表示数组中已经排序序的部分并且A[1..i]的任意数字不大于未排序部分的数字</p>
+<p>因为A[1..i]部分的数字一定不大于未排序部分的数字，所以当未排序的部分只剩一个数字时，该数字一定为最大值。</p>
+<p>选择排序的最好情况和最坏情况相同，每一个元素都要与剩下的所有元素做比较才能选出最小值。</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+C(n)&=(n-1)+(n-2)+(n-3)+\cdots+1\\
+    &=\frac 1 2(n-1)*n\\
+    &=\frac 1 2n^2-\frac 1 2n
+\end{align*}</script><p>时间复杂度为$\theta (n^2)$</p>
+<h2 id="3-1"><a href="#3-1" class="headerlink" title="3"></a>3</h2><p>第n个位置的元素为要查找的元素，查找次数为n</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+C(n)&=\frac {(1+2+3+\cdots+n)} n\\
+    &=\frac {\frac 1 2(n^2+n)} n\\
+    &=\frac {n+1} 2
+\end{align*}</script><p>平均查找次数为$\frac {n+1} 2$</p>
+<p>最坏查找次数为$n$</p>
+<p>平均情况和最坏情况的时间复杂度都为$\theta(n)$</p>
+<h1 id="2-3"><a href="#2-3" class="headerlink" title="2.3"></a>2.3</h1><h2 id="1-2"><a href="#1-2" class="headerlink" title="1"></a>1</h2><p><img src="https://github.com/Dragonchu/Pictures/blob/main/algorithmsPractise/2.3-1.png" alt=""></p>
+<h2 id="2-2"><a href="#2-2" class="headerlink" title="2"></a>2</h2><pre><code>MERGE(A,p,q,r)
+n1 = q-p+1
+n2 = r-q
+let L[1..n1+1] and R[1..n2+1] be new arrays
+for i = 1 to n1
+    L[i] = A[p+i-1]
+for j = 1 to n2
+    R[j] = A[q+j]
+i = 1
+j = 1
+k = p
+while i &lt;= n1 and j &lt;= n2
+    if L[i]&lt;= R[j]
+        A[k] = L[i]
+        i = i+1
+    else A[k] = R[j]
+        j = j+1
+    p++
+while i &lt;= n1
+    A[k] = L[i]
+    k++
+while j &lt;= n2
+    A[k] = R[j]
+    k++
+</code></pre><h2 id="3-2"><a href="#3-2" class="headerlink" title="3"></a>3</h2><p>当n=2时，$T(n)=2$，命题成立</p>
+<p>假设当n=m时，命题成立，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&T(m)=mlgm\\
+
+\end{align*}</script><p>则当n=2m时</p>
+<script type="math/tex; mode=display">
+\begin{align}
+T(2m)&=2T(2m/2)+2m\\
+    &=2T(m)+2m\\
+    &=2(T(m)+m)\\
+    &=2(mlgm+m)\\
+    &=2m(lgm+1)\\
+    &=2mlg2m
+\end{align}</script><p>所以，当$n=2^k$时，递归式的解时$T(n)=nlgn$</p>
+<h2 id="4-1"><a href="#4-1" class="headerlink" title="4"></a>4</h2><script type="math/tex; mode=display">
+T(n)=\begin{cases}1&n=1\\T(n-1)+(n-1)&n>1\end{cases}</script><h2 id="5"><a href="#5" class="headerlink" title="5"></a>5</h2><pre><code>BINARY_SEARCH(A,key)
+i = 1
+j = A.length
+while i&lt;=j
+    mid = (i+j)/2
+    if A[mid]=key
+        return mid
+    else if A[mid]&gt;key
+        i = mid+1
+    else
+        j = mid-1
+return NIL
+</code></pre><script type="math/tex; mode=display">
+\begin{align}
+&T(n)=T(n/2)+\theta(1)\\
+&T(n)=\theta(lgn)
+\end{align}</script><h2 id="6"><a href="#6" class="headerlink" title="6"></a>6</h2><pre><code>INSERTION-SORT(A)
+for j = 2 to A.length
+    key = A[j]
+    l = 0
+    r = j
+    while l+1!=r
+        do mid&lt;-(l+r)/2
+        if A[mid]&gt;=key
+            r = mid
+        else
+            l = mid
+    A[j]=A[r]
+    A[r]=key
+</code></pre><h2 id="7"><a href="#7" class="headerlink" title="7"></a>7</h2><ol>
+<li>将$S$排序</li>
+<li>将集合$P=\{z:z = x-y,y\in S\}$排序</li>
+<li>删除集合$S和P$中的重复元素</li>
+<li>合并集合$S和P为Q$</li>
+<li>如果$Q$中有重复元素，那么集合$S$中有和为$X$的两个元素</li>
+</ol>
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h1><h2 id="1-3"><a href="#1-3" class="headerlink" title="1"></a>1</h2><p><strong>a.</strong>插入排序排序长度为$k$的子表最坏情况为$\theta (k^2)$，排序$n/k$个子表的最坏情况为$\theta (k^2 \times \frac {n} {k})=\theta (nk)$</p>
+<p><strong>b.</strong>用归并的思想合并，每一层的合并最坏情况需要$\theta (n)$，一共有$\theta (lg(n/k))$层，所以最坏情况为$\theta (nlg(n/k))$</p>
+<p><strong>c.</strong>$\theta (lgn)$</p>
+<p><em>d.</em>k为插入排序比归并排序更快的最大长度</p>
+<h2 id="2-3"><a href="#2-3" class="headerlink" title="2"></a>2</h2><p><strong>a.</strong> <del>序列A是无序的</del> 序列A’中的元素是序列A中原来的元素的排序</p>
+<p><strong>b.</strong> </p>
+<p><strong>循环不变式：</strong>$A[j]是序列A[j..n]中最小的，并且A[j..n]是原来A[j..n]的一个排序$</p>
+<p><strong>初始化：</strong>循环开始的时候$j=A.length$，所以$A[j]是序列中最小的$</p>
+<p><strong>保持:</strong> 进入循环后，如果$A[j-1]&gt;A[j]$，那么就交换$A[j-1]和A[j]$的值，否则采取行动，接着$j$自减1，$A[j-1]$加入序列$A[j..A.length]$，$A[j-1]$还是序列中最小的，并且组成元素没有发生改变</p>
+<p><strong>结束:</strong> 当$j=i$时循环结束，此时$A[i]$是序列$A[i..A.length]$中最小的</p>
+<p><strong>c.</strong> </p>
+<p><strong>循环不变式：</strong>$A[1..i-1]中是原序列中最小的i-1个元素并且已经排序，A[i..n]是剩余的n-i+1个元素$</p>
+<p><strong>初始化：</strong>$i=1，A[1..i-1]为空$</p>
+<p><strong>保持：</strong>内部循环每次结束之后，$A[i]是剩余的元素中最小的元素$，所以$A[1..i-1]中会添加最大的元素里面最小的元素，即A[1..i-1]是有序的，并且元素都是原来的序列中的$</p>
+<p><strong>结束：</strong>当$i=A.length$时，循环结束，此时$A[1..n-1]中时有序排列的元素$，$A[n]$比其他所有元素大，所以整体的序列时有序的</p>
+<p><strong>d.</strong></p>
+<script type="math/tex; mode=display">
+\begin{align}
+C(n)&=(n-1)+(n-2)+\cdots+1\\
+    &=\frac {n(n-1)} {2}\\
+    &=\frac {1} {2} n^2 - \frac {1} {2}n
+\end{align}</script><p>冒泡排序的时间复杂度都是$\theta(n^2)$</p>
+<p>而插入排序最坏时间复杂度是$\theta(n^2)$，最好的情况是$\theta (n)$</p>
+<h2 id="3-3"><a href="#3-3" class="headerlink" title="3"></a>3</h2><p><strong>a. </strong> $\theta(n)$</p>
+<p><strong>b.</strong> </p>
+<pre><code>y = 0
+for i = 0 to n
+    z = a[i]
+    for j = 1 to k
+        z = z*z
+    y = y+a[k]*z
+</code></pre><p>朴素算法的时间复杂度为$\theta (n^2)$</p>
+<p><strong>c.</strong></p>
+<p><strong>循环不等式：</strong>$y=\sum\limits_{k=0}^{n-(i+1)}a_{k+i+1}x^k$</p>
+<p><strong>初始化：</strong>刚开始的时候没有项，$y=0$</p>
+<p><strong>保持：</strong></p>
+<p>在某次循环开始之前，循环不等式成立，即</p>
+<script type="math/tex; mode=display">
+\begin{align}
+y=\sum\limits_{k=0}^{n-(i+1)}a_{k+i+1}x^k
+\end{align}</script><p>进入循环体后，执行第3行代码后，有</p>
+<script type="math/tex; mode=display">
+\begin{align}
+y&=a_i+x\cdot\sum\limits_{k=0}^{n-(i+1)}a_{k+i+1}x^k\\
+&=a_i+\sum\limits_{k=0}^{n-(i+1)}a_{k+i+1}x^{k+1}\\
+&=a_i+(a_{i+1}x+a_{i+2}x^2+\cdots+a_{n}x^{n-i})\\
+&=\sum\limits_{k=0}^{n-(i+2)}a_{k+i+2}x^k
+\end{align}</script><p>当i自减1进入下一次循环后，循环不等式依旧成立</p>
+<p><strong>结束:</strong></p>
+<p>当i=-1时，循环结束，此时$y=\sum\limits_{k=0}^{n}a_{k}x^k$</p>
+<p><strong>d.</strong></p>
+<p>由<strong>c.</strong>可知</p>
+<h2 id="4-2"><a href="#4-2" class="headerlink" title="4"></a>4</h2><p><strong>a.</strong> $(1,5),(2,5),(3,4),(3,5),(4,5)$</p>
+<p><strong>b.</strong></p>
+<p>降序排列的数组拥有最多的逆序对</p>
+<script type="math/tex; mode=display">
+\begin{align}
+C(n)&=(n-1)+(n-2)+\cdots+1\\
+&=\frac {n(n-1)}{2}
+\end{align}</script><p><strong>c.</strong></p>
+<p>正比</p>
+<p>对于任意一个需要待插入到正确位置的元素$A[i]$，逆序对$(j,i),j&lt;i$的数目就是$A[i]$需要比较的次数，并且当元素$A[i]$插入到正确位置之后以该元素为第一个元素的逆序对的数量并没有发生变化</p>
+<p><strong>d.</strong></p>
+<pre><code class="lang-c++">class Solution &#123;
+vector&lt;int&gt; aux;
+public:
+    int reversePairs(vector&lt;int&gt;&amp; nums) &#123;
+        aux.resize(nums.size());
+        return mergeSort(nums,0,nums.size()-1);
+    &#125;
+    int merge(vector&lt;int&gt;&amp; nums, int l, int m, int r)&#123;
+        int cnt = 0;
+        for(int i = l;i&lt;=r;i++)&#123;
+            aux[i]=nums[i];
+        &#125;
+        int p1 = l;
+        int p2 = m+1;
+        int index = l;
+        while(p1&lt;=m&amp;&amp;p2&lt;=r)&#123;
+            if(nums[p1]&lt;=nums[p2])&#123;
+                aux[index] = nums[p1];
+                p1++;
+                index++;
+                cnt+=p2-(m+1);
+            &#125;else&#123;
+                aux[index] = nums[p2];
+                p2++;
+                index++;
+            &#125;
+        &#125;
+        while(p1&lt;=m)&#123;
+            aux[index++]=nums[p1++];
+            cnt+=p2-(m+1);
+        &#125;
+        while(p2&lt;=r)&#123;
+            aux[index++]=nums[p2++];
+        &#125;
+        for(int i = l;i&lt;=r;i++)&#123;
+            nums[i]=aux[i];
+        &#125;
+        return cnt;
+    &#125;
+    int mergeSort(vector&lt;int&gt;&amp; nums, int l,int r)&#123;
+        if(l&gt;=r)&#123;
+            return 0;
+        &#125;
+        int m = l+(r-l)/2;
+        int cnt = mergeSort(nums,l,m)+mergeSort(nums,m+1,r);
+        return cnt+merge(nums,l,m,r);
+    &#125;
+&#125;;
+</code></pre>
+</div><nav class="pagination"><a id="right-navigator" href="/2022/03/03/HTTP%E6%9C%8D%E5%8A%A1%E5%99%A8/">HTTP服务器</a></nav></div><nav id="footer"><ul id="footer-links"><li><a href="/about" class="zn">关于</a></li><li><a href="/archives" class="zn">所有文章</a></li></ul></nav></div></body></html>
