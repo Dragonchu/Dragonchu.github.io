@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>ELF文件格式 - 织寒的博客</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="织寒的博客"><meta name="msapplication-TileImage" content="/img/logo.jpg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="织寒的博客"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="ELF文件格式本文介绍ELF文件格式。"><meta property="og:type" content="blog"><meta property="og:title" content="ELF文件格式"><meta property="og:url" content="http://example.com/2022/05/12/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/"><meta property="og:site_name" content="织寒的博客"><meta property="og:description" content="ELF文件格式本文介绍ELF文件格式。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="http://example.com/img/operatorSystem/ELF.drawio.png"><meta property="article:published_time" content="2022-05-12T02:07:39.000Z"><meta property="article:modified_time" content="2022-05-12T02:14:08.951Z"><meta property="article:author" content="织寒"><meta property="article:tag" content="Linux"><meta property="article:tag" content="ELF"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="/img/operatorSystem/ELF.drawio.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2022/05/12/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/"},"headline":"ELF文件格式","image":["http://example.com/img/operatorSystem/ELF.drawio.png"],"datePublished":"2022-05-12T02:07:39.000Z","dateModified":"2022-05-12T02:14:08.951Z","author":{"@type":"Person","name":"织寒"},"publisher":{"@type":"Organization","name":"织寒的博客","logo":{"@type":"ImageObject","url":"http://example.com/img/logo.jpg"}},"description":"ELF文件格式本文介绍ELF文件格式。"}</script><link rel="canonical" href="http://example.com/2022/05/12/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/"><link rel="icon" href="/img/logo.jpg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;600&amp;family=Roboto+Mono"><link rel="stylesheet" href="/css/cyberpunk.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 6.0.0"></head><body class="is-1-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.jpg" alt="织寒的博客" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-12"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2022-05-12T02:07:39.000Z" title="5/12/2022, 10:07:39 AM">2022-05-12</time>发表</span><span class="level-item"><time dateTime="2022-05-12T02:14:08.951Z" title="5/12/2022, 10:14:08 AM">2022-05-12</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span><span class="level-item">7 分钟读完 (大约1122个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">ELF文件格式</h1><div class="content"><h1 id="ELF文件格式"><a href="#ELF文件格式" class="headerlink" title="ELF文件格式"></a>ELF文件格式</h1><p>本文介绍ELF文件格式。<br><span id="more"></span><br>建议下载下面这张图片，再对照下方的注释查阅。<br><img src="/img/operatorSystem/ELF.drawio.png" alt=""></p>
+<h2 id="1-ELF文件类"><a href="#1-ELF文件类" class="headerlink" title="[1]ELF文件类"></a>[1]ELF文件类</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>无效文件</td>
+</tr>
+<tr>
+<td>1</td>
+<td>32位ELF文件</td>
+</tr>
+<tr>
+<td>2</td>
+<td>64位ELF文件</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="2-字节序"><a href="#2-字节序" class="headerlink" title="[2]字节序"></a>[2]字节序</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>无效格式</td>
+</tr>
+<tr>
+<td>1</td>
+<td>小端格式</td>
+</tr>
+<tr>
+<td>2</td>
+<td>大端格式</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-文件类型"><a href="#3-文件类型" class="headerlink" title="[3]文件类型"></a>[3]文件类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ET_REL</td>
+<td>1</td>
+<td>可重定位文件，一般为.o文件</td>
+</tr>
+<tr>
+<td>ET_EXEC</td>
+<td>2</td>
+<td>可执行文件</td>
+</tr>
+<tr>
+<td>ET_DYN</td>
+<td>3</td>
+<td>共享目标文件，一般为.so文件</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="4-机器类型"><a href="#4-机器类型" class="headerlink" title="[4]机器类型"></a>[4]机器类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EM_M32</td>
+<td>1</td>
+<td>AT&amp;T WE 32100</td>
+</tr>
+<tr>
+<td>EM_SPARC</td>
+<td>2</td>
+<td>SPARC</td>
+</tr>
+<tr>
+<td>EM_386</td>
+<td>3</td>
+<td>Intel x86</td>
+</tr>
+<tr>
+<td>EM_68K</td>
+<td>4</td>
+<td>Motorola 68000</td>
+</tr>
+<tr>
+<td>EM_88K</td>
+<td>5</td>
+<td>Motorola 88000</td>
+</tr>
+<tr>
+<td>EM_860</td>
+<td>6</td>
+<td>Intel 80860</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="5-段的类型"><a href="#5-段的类型" class="headerlink" title="[5]段的类型"></a>[5]段的类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHT_NULL</td>
+<td>0</td>
+<td>无效段</td>
+</tr>
+<tr>
+<td>SHT_PROGBITS</td>
+<td>1</td>
+<td>程序段、代码段、数据段都是这种类型</td>
+</tr>
+<tr>
+<td>SHT_SYMTAB</td>
+<td>2</td>
+<td>表示该段的内容为符号表</td>
+</tr>
+<tr>
+<td>SHT_STRTAB</td>
+<td>3</td>
+<td>表示该段的内容为字符串表</td>
+</tr>
+<tr>
+<td>SHT_RELA</td>
+<td>4</td>
+<td>重定位表</td>
+</tr>
+<tr>
+<td>SHT_HASH</td>
+<td>5</td>
+<td>符号表的哈希表</td>
+</tr>
+<tr>
+<td>SHT_DYNAMIC</td>
+<td>6</td>
+<td>动态链接信息</td>
+</tr>
+<tr>
+<td>SHT_NOTE</td>
+<td>7</td>
+<td>提示性信息</td>
+</tr>
+<tr>
+<td>SHT_NOBITS</td>
+<td>8</td>
+<td>表示该段在文件中没内容，比如.bss段</td>
+</tr>
+<tr>
+<td>SHT_REL</td>
+<td>9</td>
+<td>这段包含了重定位信息</td>
+</tr>
+<tr>
+<td>SHT_SHLIB</td>
+<td>10</td>
+<td>保留</td>
+</tr>
+<tr>
+<td>SHT_DNYSYM</td>
+<td>11</td>
+<td>动态链接的符号表</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="6-段的标志位"><a href="#6-段的标志位" class="headerlink" title="[6]段的标志位"></a>[6]段的标志位</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHF_WRITE</td>
+<td>1</td>
+<td>表示该段在进程空间中可写</td>
+</tr>
+<tr>
+<td>SHF_ALLOC</td>
+<td>2</td>
+<td>表示该段在进程空间中须要分配空间。</td>
+</tr>
+<tr>
+<td>SHF_EXECINSTR</td>
+<td>4</td>
+<td>表示该段在进程空间中可以被执行，一般指代码段</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="7-段的链接信息-sh-link-amp-sh-info"><a href="#7-段的链接信息-sh-link-amp-sh-info" class="headerlink" title="[7]段的链接信息(sh_link&amp;sh_info)"></a>[7]段的链接信息(sh_link&amp;sh_info)</h2><p>如果该段的类型与链接有关，则意义如下，否则无意义</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>sh_type</th>
+<th>sh_link</th>
+<th>sh_info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHT_DYNAMIC</td>
+<td>该段所使用的字符串表在段表的下标</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SHT_HASH</td>
+<td>该段所使用的符号表在段表中的下标</td>
+<td>0</td>
+</tr>
+<tr>
+<td>SHT_REL/SHT_RELA</td>
+<td>该段所使用的相应符号表在段表中的下标</td>
+<td>该重定位表所作用的段在段表中的下标</td>
+</tr>
+<tr>
+<td>SHT_SYMTAB/SHT_DYNSYM</td>
+<td>操作系统相关的</td>
+<td>操作系统相关的</td>
+</tr>
+<tr>
+<td>other</td>
+<td>SHN_UNDEF</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="8-符号类型"><a href="#8-符号类型" class="headerlink" title="[8]符号类型"></a>[8]符号类型</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>宏定义名</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STT_NOTYPE</td>
+<td>0</td>
+<td>未知类型符号</td>
+</tr>
+<tr>
+<td>STT_OBJECT</td>
+<td>1</td>
+<td>该符号是个数据对象，比如变量、数组等</td>
+</tr>
+<tr>
+<td>STT_FUNC</td>
+<td>2</td>
+<td>该符号是个函数或其他可执行代码</td>
+</tr>
+<tr>
+<td>STT_SECTION</td>
+<td>3</td>
+<td>该符号表示一个段，这种符号必须是STB_LOCAL的</td>
+</tr>
+<tr>
+<td>STT_FILE</td>
+<td>4</td>
+<td>该符号表示文件名，一般都是该目标文件所对应的源文件名，并且它的st_shndx一定是SHN_ABS</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="9-符号绑定信息"><a href="#9-符号绑定信息" class="headerlink" title="[9]符号绑定信息"></a>[9]符号绑定信息</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>宏定义名</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STB_LOCAL</td>
+<td>0</td>
+<td>局部符号，对于目标文件的外部不可见</td>
+</tr>
+<tr>
+<td>STB_GLOBAL</td>
+<td>1</td>
+<td>全局符号，外部可见</td>
+</tr>
+<tr>
+<td>STB_WEAK</td>
+<td>2</td>
+<td>弱引用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="10-符号所在段"><a href="#10-符号所在段" class="headerlink" title="[10]符号所在段"></a>[10]符号所在段</h2><p>如果符号定义在本目标文件中，那么这个成员表示符号所在的段在段表中的下标。</p>
+<p>否则，如下表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>宏定义名</th>
+<th>值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SHN_ABS</td>
+<td>0xfff1</td>
+<td>表示该符号包含了一个绝对的值。表示文件名的符号就是这种类型</td>
+</tr>
+<tr>
+<td>SHN_COMMON</td>
+<td>0xfff2</td>
+<td>表示该符号是一个“COMMON块“类型的符号，一般来说，未初始化的全局符号定义就是这种类型的</td>
+</tr>
+<tr>
+<td>SHN_UNDEF</td>
+<td>0</td>
+<td>表示该符号未定义。这个符号表示该符号在本目标文件被引用到，但是定义在其他目标文件中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="11-常见类型值"><a href="#11-常见类型值" class="headerlink" title="[11]常见类型值"></a>[11]常见类型值</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>d_tag类型</th>
+<th>d_un类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DT_SYMTAB</td>
+<td>动态链接符号表的地址，d_ptr表示”.dynsym”的地址</td>
+</tr>
+<tr>
+<td>DT_STRTAB</td>
+<td>动态链接字符串表的地址，d_ptr表示”.dynstr”的地址</td>
+</tr>
+<tr>
+<td>DT_STRZE</td>
+<td>动态链接字符串表的大小，d_val表示大小</td>
+</tr>
+<tr>
+<td>DT_HASH</td>
+<td>动态链接哈希表地址，d_ptr表示”.hash”的地址</td>
+</tr>
+<tr>
+<td>DT_SONAME</td>
+<td>本共享对象的”SO-NAME”</td>
+</tr>
+<tr>
+<td>DT_RPATH</td>
+<td>动态链接共享对象搜索路径</td>
+</tr>
+<tr>
+<td>DT_INIT</td>
+<td>初始化代码地址</td>
+</tr>
+<tr>
+<td>DT_FINIT</td>
+<td>结束代码地址</td>
+</tr>
+<tr>
+<td>DT_NEED</td>
+<td>依赖的共享对象文件，d_ptr表示所依赖的共享对象文件名</td>
+</tr>
+<tr>
+<td>DT_REL/DT_RELA</td>
+<td>动态链接重定位表地址</td>
+</tr>
+<tr>
+<td>DT_RELENT/DT_RELENTA</td>
+<td>动态重读位表入口数量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="12-重定位入口的偏移"><a href="#12-重定位入口的偏移" class="headerlink" title="[12]重定位入口的偏移"></a>[12]重定位入口的偏移</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>文件类型</th>
+<th>r_offset的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可重定位文件</td>
+<td>该重定位入口所要修正的位置的第一个字节相对于段起始的偏移</td>
+</tr>
+<tr>
+<td>可执行文件/共享对象文件</td>
+<td>该重定位入口所要修正的位置的第一个字节的虚拟地址</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>参考文献</strong>：《程序员的自我修养》</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>ELF文件格式</p><p><a href="http://example.com/2022/05/12/ELF文件格式/">http://example.com/2022/05/12/ELF文件格式/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>织寒</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-05-12</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-05-12</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/Linux/">Linux</a><a class="link-muted mr-2" rel="tag" href="/tags/ELF/">ELF</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/05/31/pwndbg%E7%BB%83%E6%89%8B/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">pwndbg练手</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/04/27/%E5%A6%82%E4%BD%95%E6%96%B9%E4%BE%BF%E5%9C%B0%E9%98%85%E8%AF%BBArduino%E6%88%96Esp8266%E7%9A%84%E6%BA%90%E4%BB%A3%E7%A0%81/"><span class="level-item">如何方便地阅读Arduino或Esp8266的源代码</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'http://example.com/2022/05/12/ELF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/';
+            this.page.identifier = '2022/05/12/ELF文件格式/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'dragonchu' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><!--!--><div class="column column-right  order-3 is-sticky"><!--!--></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.jpg" alt="织寒的博客" height="28"></a><p class="is-size-7"><span>&copy; 2022 织寒</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
