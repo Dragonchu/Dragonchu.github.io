@@ -1,0 +1,8 @@
+ltximg/
+*.pdf
+*.html
+*.tex
+# Emacs temporary files
+*~
+\#*\#
+.\#*
