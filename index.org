@@ -1,3 +1,16 @@
-* Index
-[[file:about.org][remember]]
-[[file:img/test.png]]
+* 博客正在迁移中
+
+这是第三次迁移博客了
+| 时期   | 工作流                   |
+|-------+-------------------------|
+| 第一次 | wordpress, 动态页面       |
+| 第二次 | notion+noteblog, 静态页面 |
+| 第三次 | emacs+org, 静态页面         |
+
+最近浏览开源社区大佬的介绍时，发现很多人都在使用emacs，了解了一下很符合我的需求。
+
+现在计划将博客工作流都迁移到emacs上，目前已经将整个工作流初步搭建好了。
+
+[[https://github.com/Dragonchu/emacs.d][我的emacs配置文件]]
+
+[[https://github.com/Dragonchu/blog-org][org文件的git仓库]]
