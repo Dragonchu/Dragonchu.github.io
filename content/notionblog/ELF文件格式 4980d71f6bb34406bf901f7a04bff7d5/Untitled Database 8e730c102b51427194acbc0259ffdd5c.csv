@@ -1,0 +1,5 @@
+﻿Title,Column 1,Column 2
+常量,值,含义
+ET_REL,1,可重定位文件，一般为.o文件
+ET_EXEC,2,可执行文件
+ET_DYN,3,共享目标文件，一般为.so文件

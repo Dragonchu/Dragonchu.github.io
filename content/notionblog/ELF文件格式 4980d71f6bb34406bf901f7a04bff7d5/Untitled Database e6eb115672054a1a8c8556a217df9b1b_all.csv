@@ -1,0 +1,5 @@
+﻿Title,Column 1,Column 2,Status
+宏定义名,值,说明,
+STB_LOCAL,0,局部符号，对于目标文件的外部不可见,
+STB_GLOBAL,1,全局符号，外部可见,
+STB_WEAK,2,弱引用,

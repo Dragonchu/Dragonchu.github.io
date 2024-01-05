@@ -1,0 +1,13 @@
+﻿Title,Column 1
+d_tag类型,d_un类型
+DT_SYMTAB,"动态链接符号表的地址，d_ptr表示"".dynsym""的地址"
+DT_STRTAB,"动态链接字符串表的地址，d_ptr表示"".dynstr""的地址"
+DT_STRZE,动态链接字符串表的大小，d_val表示大小
+DT_HASH,"动态链接哈希表地址，d_ptr表示"".hash""的地址"
+DT_SONAME,"本共享对象的""SO-NAME"""
+DT_RPATH,动态链接共享对象搜索路径
+DT_INIT,初始化代码地址
+DT_FINIT,结束代码地址
+DT_NEED,依赖的共享对象文件，d_ptr表示所依赖的共享对象文件名
+DT_REL/DT_RELA,动态链接重定位表地址
+DT_RELENT/DT_RELENTA,动态重读位表入口数量

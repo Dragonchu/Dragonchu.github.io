@@ -1,0 +1,5 @@
+﻿Title,Column 1,Column 2
+常量,值,含义
+SHF_WRITE,1,表示该段在进程空间中可写
+SHF_ALLOC,2,表示该段在进程空间中须要分配空间。
+SHF_EXECINSTR,4,表示该段在进程空间中可以被执行，一般指代码段
