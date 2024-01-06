@@ -1,12 +1,10 @@
-# OpenCV的安装与环境配置（window10，Visual Studio 2019）
+---
+title: "OpenCV的安装与环境配置（window10，Visual Studio 2019）"
+date: 2022-04-17
+draft: false
+tags: ["归档","环境配置"]
+---
 
-date: April 17, 2022
-description: 配置OpenCV
-inList: No
-inMenu: No
-publish: Yes
-tags: 归档, 环境配置
-template: post
 
 # **OpenCV的安装与环境配置（window10，Visual Studio 2019）**
 

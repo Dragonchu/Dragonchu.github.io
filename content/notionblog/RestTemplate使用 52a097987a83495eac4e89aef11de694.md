@@ -1,11 +1,9 @@
-# RestTemplate使用
-
-date: March 21, 2023
-inList: No
-inMenu: No
-publish: Yes
-tags: Spring, 归档
-template: post
+---
+title: "RestTemplate使用"
+date: 2023-05-21
+draft: false
+tags: ["归档","Spring"]
+---
 
 ## 初始化
 
