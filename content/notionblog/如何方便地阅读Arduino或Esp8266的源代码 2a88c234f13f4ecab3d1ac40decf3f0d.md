@@ -1,12 +1,10 @@
-# 如何方便地阅读Arduino或Esp8266的源代码
-
-date: April 27, 2022
-description: 本文介绍如何使用ArduinoCLI生成compile_commands.json从而更好地阅读Arduino以及Esp8266的代码。
-inList: No
-inMenu: No
-publish: Yes
-tags: 嵌入式开发, 归档
-template: post
+---
+title: "如何方便地阅读Arduino或Esp8266的源代码"
+date: 2022-04-27
+draft: false
+tags: ["嵌入式开发","归档"]
+description: "本文介绍如何使用ArduinoCLI生成compile_commands.json从而更好地阅读Arduino以及Esp8266的代码。"
+---
 
 # **如何方便地阅读Arduino或Esp8266的源代码**
 

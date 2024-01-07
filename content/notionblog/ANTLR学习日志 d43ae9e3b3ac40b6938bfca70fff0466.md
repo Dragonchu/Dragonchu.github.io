@@ -1,11 +1,9 @@
-# ANTLR学习日志
-
-date: February 28, 2023
-inList: No
-inMenu: No
-publish: Yes
-tags: ANTLR, 归档
-template: post
+---
+title: "ANTLR学习日志"
+date: 2023-02-28
+draft: false
+tags: ["归档","ANTLR"]
+---
 
 阅读的是作者自己写的**[The Definitive ANTLR 4 Reference](https://dl.icdst.org/pdfs/files3/a91ace57a8c4c8cdd9f1663e1051bf93.pdf)**
 

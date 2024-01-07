@@ -1,11 +1,9 @@
-# ANTLR学习笔记（2）
-
-date: March 8, 2023
-inList: No
-inMenu: No
-publish: Yes
-tags: ANTLR, 归档
-template: post
+---
+title: "ANTLR学习笔记（2）"
+date: 2023-03-08
+draft: false
+tags: ["归档","ANTLR"]
+---
 
 **书籍名称**：The definitive ANTLR 4 Reference
 

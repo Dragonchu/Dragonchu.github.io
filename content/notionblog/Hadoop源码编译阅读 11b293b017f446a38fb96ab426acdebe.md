@@ -15,7 +15,7 @@ mvn test -Dtest=TestLongLong
 
 根据错误提示，是hadoop-common这个模块中的antrun插件有问题，去该模块的pom中查看，
 
-![Untitled](Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled.png)
+![Untitled](/img/Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled.png)
 
 是执行这个execution的时候出错了。
 
@@ -31,29 +31,29 @@ mvn test -Dtest=TestLongLong
 
 看到插件里面，是执行了src/test/scripts下的run-bats.sh
 
-![Untitled](Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%201.png)
+![Untitled](/img/Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%201.png)
 
 可以看到这个脚本就是把scripts下的脚本都跑一遍
 
 再看看我的日志，说明这个脚本跑起来了了，有脚本没跑起来，那就按照顺序看看是到哪个没跑起来
 
-![Untitled](Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%202.png)
+![Untitled](/img/Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%202.png)
 
 官方issue里是hadoop_mkdir.bats这个脚本没跑通，我这里这个脚本跑通了
 
 我最后一个start-build-env.bats的脚本已经执行了也没报错，为什么还是没通过呢？
 
-![Untitled](Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%203.png)
+![Untitled](/img/Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%203.png)
 
 是不是全部跑完然后中间有不ok的就算报错，于是我回头再看了一遍日志
 
 原来hadoop_java_setup.bats这个脚本中有not ok的
 
-![Untitled](Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%204.png)
+![Untitled](/img/Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%204.png)
 
 看看这个脚本
 
-![Untitled](Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%205.png)
+![Untitled](/img/Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%205.png)
 
 原来这个脚本里有四个测试，这时我也才搞懂日志中1..4是代表测试的数目
 
@@ -107,7 +107,7 @@ sudo cp phantomjs-2.1.1-linux-x86_64/bin/phantomjs /usr/bin/
 
 现在了解了，selenium是做浏览器测试的工具，也就是hadoop用这个工具来测试它的yarnUI界面，
 
-![Untitled](Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%206.png)
+![Untitled](/img/Hadoop%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91%E9%98%85%E8%AF%BB%2011b293b017f446a38fb96ab426acdebe/Untitled%206.png)
 
 仔细看看错误日志，有很多有趣的信息，一个是报错，还有就是生成了log文件
 

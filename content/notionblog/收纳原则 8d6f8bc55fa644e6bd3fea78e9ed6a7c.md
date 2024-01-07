@@ -1,11 +1,9 @@
-# 收纳原则
-
-date: April 16, 2023
-inList: No
-inMenu: No
-publish: Yes
-tags: 归档, 随笔
-template: post
+---
+title: "收纳原则"
+date: 2023-04-16
+draft: false
+tags: ["归档","随笔"]
+---
 
 对我而言，收纳一直是个很痛苦的事情。如何把家中各种物品放在它应该在的位置，保持家中条理清晰，干干净净。
 

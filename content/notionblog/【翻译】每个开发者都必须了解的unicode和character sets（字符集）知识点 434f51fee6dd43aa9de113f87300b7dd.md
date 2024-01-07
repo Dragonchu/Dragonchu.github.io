@@ -1,12 +1,9 @@
-# 【翻译】每个开发者都必须了解的unicode和character sets（字符集）知识点
-
-date: August 1, 2023
-description: 短短续续翻译了半个月，终于翻译完了😩
-inList: Yes
-inMenu: No
-publish: Yes
-tags: 翻译
-template: post
+---
+title: "翻译】每个开发者都必须了解的unicode和character sets（字符集）知识点"
+date: 2023-8-01
+draft: false
+tags: ["翻译"]
+---
 
 > 原文地址：[https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
 > 
@@ -48,7 +45,7 @@ Content-Type: multipart/form-data; boundary=something
 
 因为每个字节使用了8个比特，许多人就想到，“我们可以把128-255的数字给自己用”。问题在于很多人同时有了相同的想法，而且他们对于128到255的数字的用法都有自己独特的想法。IBM-PC 有一些后来被称为 OEM 字符集的东西，它为欧洲语言提供了一些重音字符和一系列线条绘制字符... ... 水平条、垂直条、右边有小铃铛悬挂的水平条等等。
 
-![Untitled](%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91%E6%AF%8F%E4%B8%AA%E5%BC%80%E5%8F%91%E8%80%85%E9%83%BD%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84unicode%E5%92%8Ccharacter%20sets%EF%BC%88%E5%AD%97%E7%AC%A6%E9%9B%86%EF%BC%89%E7%9F%A5%E8%AF%86%E7%82%B9%20434f51fee6dd43aa9de113f87300b7dd/Untitled.png)
+![Untitled](/img/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91%E6%AF%8F%E4%B8%AA%E5%BC%80%E5%8F%91%E8%80%85%E9%83%BD%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84unicode%E5%92%8Ccharacter%20sets%EF%BC%88%E5%AD%97%E7%AC%A6%E9%9B%86%EF%BC%89%E7%9F%A5%E8%AF%86%E7%82%B9%20434f51fee6dd43aa9de113f87300b7dd/Untitled.png)
 
 你可以用这些线条字符在屏幕上画好看的盒子和直线，用这些字符集画的画你仍然能在你的干洗机上的8088电脑上看到。事实上，当人们开始在美国以外购买个人电脑时，各种不同的OEM字符集就被设想出来了，这些字符集都是为了自己的目的而使用前128个字符。比如130在一些电脑上会被显示为é，但是在以色列售卖的电脑会将130显示为希伯来语Gimel（译者注：原文的字符打不出来）,所以当美国人发送résumés到以色列时，以色列人会收到r(Gimel)sum(Gimel)s。在很多情况下，比如在俄罗斯，关于如何使用前128个字符有非常多的想法，所以交换两个俄语文档都是可能有问题的。
 
@@ -106,7 +103,7 @@ U+0048 U+0065 U+006C U+006C U+006F
 
 因此，绝世无双的[UTF-8](http://www.utf-8.com/)被发明（[invented](http://www.cl.cam.ac.uk/~mgk25/ucs/utf-8-history.txt)）出来了。UTF-8是另一种用来存储你用Unicode码点表示的字符串的系统，这些神奇的U+数字在内存里使用8bit的字节表示。在UTF-8里，0-127的码点都存储在1个字节中。只有128和128之上的码点使用2，3最多能有6个字节表示。
 
-![Untitled](%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91%E6%AF%8F%E4%B8%AA%E5%BC%80%E5%8F%91%E8%80%85%E9%83%BD%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84unicode%E5%92%8Ccharacter%20sets%EF%BC%88%E5%AD%97%E7%AC%A6%E9%9B%86%EF%BC%89%E7%9F%A5%E8%AF%86%E7%82%B9%20434f51fee6dd43aa9de113f87300b7dd/Untitled%201.png)
+![Untitled](/img/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91%E6%AF%8F%E4%B8%AA%E5%BC%80%E5%8F%91%E8%80%85%E9%83%BD%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84unicode%E5%92%8Ccharacter%20sets%EF%BC%88%E5%AD%97%E7%AC%A6%E9%9B%86%EF%BC%89%E7%9F%A5%E8%AF%86%E7%82%B9%20434f51fee6dd43aa9de113f87300b7dd/Untitled%201.png)
 
 这样做的好处是，英语的文本使用UTF-8和使用ASCII是完成一样的，所以美国人甚至都不会察觉到发生什么事了。只有全世界其他地区不得不过五关斩六将。举个例子，Hello的Unicode表示是U+0048 U+0065 U+006C U+006C U+006F，在UTF-8下将会被存储为48 65 6C 6C 6F，这和使用ASCII，ANSI，以及地球上任何一个OEM字符集都是一样的。现在，如果你是一个敢于冒险的人想要使用一些带重读音节的字母或者希腊字母或者克林贡语，你都必须使用多个字符来存储一个码点，但是美国人压根不会感觉到。（UTF-8 还具有一个很好的特性，即那些希望使用单个 0 字节作为空字符结束符的旧字符串处理代码不会截断字符串）
 
@@ -149,7 +146,7 @@ U+0048 U+0065 U+006C U+006C U+006F
 
 如果浏览器没有在header中也没有在元标签中找到Content-Type会做什么呢？浏览器事实上会做一件很有趣的事情：它试图去猜，根据不同语言的典型编码中不同字节在典型文本中出现的频率，判断使用了什么语言和编码。因为各种旧的8位代码页（code pages）倾向于将其国家字母放在128到255之间的不同范围内，而且因为每种人类语言都有不同的字母使用特征直方图，所以这实际上有可能奏效。这确实很奇怪，但它似乎经常工作，天真的网页作者从不知道他们需要一个Content-Type标题，在网页浏览器中查看他们的页面，看起来还不错，直到有一天，他们写的东西不完全符合他们母语的字母频率分布，Internet Explorer认定这是韩语，并显示它。相信我，[Postel’s Law](https://en.wikipedia.org/wiki/Robustness_principle)的“对输入自由，对输出保守”（conservative in what you emit and liberal in what you accept）老实说不是一个好的工程原则。不管怎么说，这个网站的可怜读者怎么做，网站是用保加利亚语写的，但看起来是韩语(甚至不是连贯的韩语)。他使用View | Encoding菜单，尝试了一堆不同的编码(至少有十几种东欧语言的编码)，直到画面变得更清晰。如果他知道该怎么做，而大多数人都不知道。
 
-![Untitled](%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91%E6%AF%8F%E4%B8%AA%E5%BC%80%E5%8F%91%E8%80%85%E9%83%BD%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84unicode%E5%92%8Ccharacter%20sets%EF%BC%88%E5%AD%97%E7%AC%A6%E9%9B%86%EF%BC%89%E7%9F%A5%E8%AF%86%E7%82%B9%20434f51fee6dd43aa9de113f87300b7dd/Untitled%202.png)
+![Untitled](/img/%E3%80%90%E7%BF%BB%E8%AF%91%E3%80%91%E6%AF%8F%E4%B8%AA%E5%BC%80%E5%8F%91%E8%80%85%E9%83%BD%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84unicode%E5%92%8Ccharacter%20sets%EF%BC%88%E5%AD%97%E7%AC%A6%E9%9B%86%EF%BC%89%E7%9F%A5%E8%AF%86%E7%82%B9%20434f51fee6dd43aa9de113f87300b7dd/Untitled%202.png)
 
 对于我公司（[my company](http://www.fogcreek.com/)）发布的网站管理软件的最新版本（[CityDesk](http://www.fogcreek.com/CityDesk)），我们决定在UCS-2（两个字节）Unicode中进行内部操作，这是Visual Basic，COM和Windows NT/2000/XP的使用他们的本机字符串类型。在C ++代码中，我们只是将字符串声明为WCHAR_T（“宽字符”），而不是CHAR，并使用WCS函数而不是STR函数（例如WCSCAT和WCSLEN而不是Strcat和Strcat和Strlen）。要在C代码中创建字面的UCS-2字符串，您只是将L放在其之前：L“ Hello”。
 
