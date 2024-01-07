@@ -6,3 +6,8 @@ theme = "PaperMod"
 # enable search
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+[[menu.main]]
+  identifier = "search"
+  name = "搜索"
+  url = "/search/"
+  weight = 2
