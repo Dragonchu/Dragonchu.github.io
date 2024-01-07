@@ -1,11 +1,9 @@
-# HadoopMapReduce代码分析GrepExample（二）
-
-date: February 23, 2023
-inList: No
-inMenu: No
-publish: Yes
-tags: Hadoop, 归档
-template: post
+---
+title: "HadoopMapReduce代码分析GrepExample（二）"
+date: 2023-02-23
+draft: false
+tags: ["归档","Hadoop"]
+---
 
 run方法先进行命令行参数校验，没什么好看的。
 

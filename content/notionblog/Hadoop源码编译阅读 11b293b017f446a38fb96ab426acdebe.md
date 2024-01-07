@@ -1,11 +1,9 @@
-# Hadoop源码编译阅读
-
-date: January 26, 2023
-inList: No
-inMenu: No
-publish: Yes
-tags: Hadoop, 归档
-template: post
+---
+title: "Hadoop源码编译阅读"
+date: 2023-01-26
+draft: false
+tags: ["归档","Hadoop"]
+---
 
 mvn test -Dtest=TestLongLong
 

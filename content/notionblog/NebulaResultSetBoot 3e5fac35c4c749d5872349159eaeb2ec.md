@@ -1,12 +1,9 @@
-# NebulaResultSetBoot
-
-date: March 12, 2023
-inList: No
-inMenu: No
-publish: Yes
-tags: Nebula, 开源, 归档
-template: post
-
+---
+title: "NebulaResultSetBoot"
+date: 2023-05-12
+draft: false
+tags: ["归档","Nebula","开源"]
+---
 Nebula查询结果的封装对象ResultSet比较复杂，原因是需要保存数据类型。而JSON的一大缺点就是无法保存数据类型，当然这是它简洁的代价。
 
 在实际生产过程中一些应用场景对数据类型并没有太多要求，典型的例子是可视化。很多小伙伴都有将valuewrapper转为自定义json对象的需求，或者是将官方的图模型映射到自己的领域模型的需求。我这里提供一个我写的框架抛砖引玉。

@@ -1,15 +1,9 @@
 ---
 title: "OpenCV的安装与环境配置（window10，Visual Studio 2019）"
-date: 2022-04-17
+date: 2021-04-17
 draft: false
 tags: ["归档","环境配置"]
 ---
-
-
-# **OpenCV的安装与环境配置（window10，Visual Studio 2019）**
-
-日期：2021年04月17日
-
 ## **OpenCV的安装**
 
 **第一步：**下载OpenCv **[https://opencv.org/releases/](https://opencv.org/releases/)**，本文使用 OpenCV-4.5.0 。

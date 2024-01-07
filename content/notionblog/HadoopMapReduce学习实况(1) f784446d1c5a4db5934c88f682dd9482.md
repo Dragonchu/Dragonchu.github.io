@@ -1,12 +1,10 @@
-# HadoopMapReduce学习实况(1)
-
-date: February 17, 2023
-description: 解读MapReduce: Simplified Data Processing on Large Clusters
-inList: No
-inMenu: No
-publish: Yes
-tags: Hadoop, 归档
-template: post
+---
+title: "HadoopMapReduce学习实况(1)"
+date: 2023-02-17
+draft: false
+tags: ["归档","Hadoop"]
+description: "解读MapReduce: Simplified Data Processing on Large Clusters"
+---
 
 MapReduce是一个编程模型，基本思想是：
 

@@ -1,12 +1,10 @@
-# HadoopMapReduce代码分析GrepExample（一）
-
-date: February 21, 2023
-description: 调试并分析单机grep测试
-inList: No
-inMenu: No
-publish: Yes
-tags: Hadoop, 归档
-template: post
+---
+title: "HadoopMapReduce代码分析GrepExample（一）"
+date: 2023-02-21
+draft: false
+tags: ["归档","Hadoop"]
+description: "调试并分析单机grep测试"
+---
 
 Grep程序在谷歌的MapReduce论文中也作为示例程序提到过，在大规模数据集中并行找出符合指定模式的文件。
 
@@ -33,7 +31,7 @@ export HADOOP_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,addres
 
 在idea中打上断点，通过查看haoop-mapreduce-examples模块中的pom文件，可以看到在打包插件里指定了org.apache.hadoop.examples.ExampleDriver类为启动类。
 
-![Untitled](HadoopMapReduce%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90GrepExample%EF%BC%88%E4%B8%80%EF%BC%89%20b6bd6d7d2a7944dd908f228ce2d99660/Untitled.png)
+![Untitled](/img/HadoopMapReduce%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90GrepExample%EF%BC%88%E4%B8%80%EF%BC%89%20b6bd6d7d2a7944dd908f228ce2d99660/Untitled.png)
 
 那么就从这个类开始分析吧。
 
@@ -53,7 +51,7 @@ main方法中用了一个ToolRunner去run，run方法中提供了Configuration�
 
 这个Configuration就负责加载core-site那些配置文件已经用户程序中设定的配置，具体的配置目前应该没必要深究。可以看到使用默认配置是将loadDefault这个bool值设为false，然后往一个WeakHashMap中put一个key为自己，value为null的键值对。
 
-![Untitled](HadoopMapReduce%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90GrepExample%EF%BC%88%E4%B8%80%EF%BC%89%20b6bd6d7d2a7944dd908f228ce2d99660/Untitled%201.png)
+![Untitled](/img/HadoopMapReduce%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90GrepExample%EF%BC%88%E4%B8%80%EF%BC%89%20b6bd6d7d2a7944dd908f228ce2d99660/Untitled%201.png)
 
 第一次看到WeakHashMap，学一下。
 
@@ -67,7 +65,7 @@ main方法中用了一个ToolRunner去run，run方法中提供了Configuration�
 
 进去之后调用的是CurrentCallerContextHolder.CALLER_CONTEXT.get()
 
-![Untitled](HadoopMapReduce%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90GrepExample%EF%BC%88%E4%B8%80%EF%BC%89%20b6bd6d7d2a7944dd908f228ce2d99660/Untitled%202.png)
+![Untitled](/img/HadoopMapReduce%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90GrepExample%EF%BC%88%E4%B8%80%EF%BC%89%20b6bd6d7d2a7944dd908f228ce2d99660/Untitled%202.png)
 
 类描述里贴心的给了链接[https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom](https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom)
 

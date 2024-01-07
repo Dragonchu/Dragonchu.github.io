@@ -5,7 +5,6 @@ draft: false
 tags: ["Hadoop","归档","环境配置"]
 description: "没有办法必须在windows部署hadoop2.7.1，请注意这几点"
 ---
-
 1. hadoop2.7.1要使用的jdk必须是64位的，使用javac命令，如果是64位的jdk会有64的字眼出现，没有就不是64位的，这一点很关键，32位的sdk是运行不了hadoop2.7.1的。
 2. hadoop的压缩包解压需要管理员权限
 3. 环境变量里面要添加HADOOP_HOME，path路径里面要增加hadoop安装目录下的bin
