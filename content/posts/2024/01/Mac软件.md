@@ -20,3 +20,5 @@ poetry install
 poetry env remove 3.12
 
 ## go (install with official installer)
+
+## warp (终端)
