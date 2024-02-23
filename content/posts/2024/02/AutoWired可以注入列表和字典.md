@@ -2,7 +2,7 @@
 title: "AutoWire可以注入列表和字典"
 date: 2024-02-23
 draft: false
-tags: ["spring", "java]
+tags: ["spring", "java"]
 ---
 
 目前我们业务代码里有一种常见的模式，定义一个接口，接着通过多个handler类实现这个接口, 在面对不同的情况时通过调用不同的handler类来处理业务代码，通常这些handler类都会继承一个公用的父类，父类中会有一些公共的方法。
