@@ -12,6 +12,12 @@ theme = "PaperMod"
   url = "/search/"
   weight = 2
 
+[[menu.main]]
+  identifier = "archives"
+  name = "归档"
+  url = "/archives/"
+  weight = 2
+
 [params]
     ShowCodeCopyButtons = true
     ShowReadingTime = true
