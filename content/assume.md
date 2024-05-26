@@ -1,5 +1,5 @@
 ---
-title: "Assume"
+title: "简历"
 layout: "assume"
 url: "/assume"
 summary: assume
@@ -91,4 +91,8 @@ RUST：了解
 
 ---
 
-- 开源项目贡献者
+- 开源项目
+
+[NebulaResultSetBoot](https://github.com/nebula-contrib/NebulaResultSetBoot)是一个帮助开发者将Nebula客户端的查询结果转为JSON的小工具。
+
+[NebulaGraphQL](https://github.com/nebula-contrib/NebulaGraphQL)目标是为NebulaGraph支持GraphQL查询
