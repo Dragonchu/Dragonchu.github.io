@@ -18,6 +18,12 @@ theme = "PaperMod"
   url = "/archives/"
   weight = 2
 
+[[menu.main]]
+  identifier = "assume"
+  name = "简历"
+  url = "/assume/"
+  weight = 2
+
 [params]
     ShowCodeCopyButtons = true
     ShowReadingTime = true
