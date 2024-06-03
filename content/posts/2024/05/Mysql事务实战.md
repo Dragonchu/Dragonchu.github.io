@@ -79,7 +79,7 @@ ANSI SQL标准定义了4种隔离级别。
 
 事务B更新：```update employees set gender = 'F' where emp_no = '10002';```
 
-![imgage003](/img/2024/05/image003.png)
+![imgage004](/img/2024/05/image004.png)
 
 我们发现这个事务B会被阻塞，所以read uncommitted状态下，两个事务修改同一个行仍然会有阻塞现象发生。
 
@@ -94,4 +94,53 @@ read uncommitted级别下，一个事务可以读取到另一个事务暂未提�
 
 同样的，我们在两个会话中开启事务，并查询一下当前1002的状态。
 
+![image005](/img/2024/05/image005.png)
+
+在会话A中，我们提交一个修改事务，不提交
+
+```update employees set gender = 'M' where emp_no = '10002';```
+
+在会话B中，我们查询，事务B中读取的性别还是F
+
+![image006](/img/2024/05/image006.png)
+
+这时候，我们提交事务A，再在事务B中查询，会发现事务B中读取的是提交之后的性别M。
+
+![image007](/img/2024/05/image007.png)
+
+read committed在同一个事务中重复读取可能会读到不同的数据，这会导致什么问题呢？如果业务中只读取一次，我感觉问题也不大，如果业务流程中，需要在一个事务中多次读取，就会出现前后不一致的情况。
+
+### REPEATABLE READ
+
+接下来，我们将两个会话的事务隔离级别调整为repeatable read，并开启事务
+
+```SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ;```
+
+重新检查一下10002现在的状态
+
+![image008](/img/2024/05/image008.png)
+
+在事务A中将10002的性别更新为M
+
+```update employees set gender = 'F' where emp_no = '10002';```
+
+在事务B中查询10002的性别，还是M
+
+提交事务A，再在事务B中查询10002的性别，仍然是M，提交事务B，在会话B中重新打开一个事务再查询，就可以观测到10002的性别已经更新为F了。
+
+#### 幻读
+
+继续在两个会话中开启事务，事务级别控制在repeatable read
+
+查看一下前10行```select * from employees order by emp_no limit 10;```
+
+![image009](/img/2024/05/image009.png)
+
+在事务A中执行```INSERT INTO `employees` VALUES (10000,'1953-09-02','Georgi','Facello','M','1986-06-26');```
+
+再在事务A中查询
+
+![image010](/img/2024/05/image010.png)
+
+可以看到事务A中增加了一条记录，而在事务B中是查询不到该记录。
 
