@@ -1,6 +1,6 @@
 ---
 title: "翻译】每个开发者都必须了解的unicode和character sets（字符集）知识点"
-date: 2023-8-01
+date: 2023-08-01
 draft: false
 tags: ["翻译"]
 ---
