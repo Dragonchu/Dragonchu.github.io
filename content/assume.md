@@ -21,9 +21,7 @@ summary: assume
 
 主要使用kotlin从事后端开发，参与到快手魔法表情弹性微服务平台的开发。
 
-学习到了后端开发流程，git协作规范，各种自动化流程，
-
-以及软件架构与设计的经验。
+学习到了后端开发流程，协作规范，，各种自动化流程，以及软件架构与设计的经验。
 
 熟悉了现代化软件工程的开发。
 
@@ -43,7 +41,7 @@ summary: assume
 
 - GraphImport
 
-数据导入，自动重试，多机制。
+基于Scala实现的数据导入服务，自动重试，多机制。
 
 - 图谱定制开发
 
@@ -51,14 +49,17 @@ summary: assume
 
 **实名与反欺诈研发部**
 
-后端开发工程师
+> 后端开发工程师
 
-2023-05-01 - 至今
+2023-05-01 - 2024-07-10
 
 - 开发京东个人实名认证服务后端日常功能
 - 独立设计, 开发并落地个人实名用户旅程系统
 - 618，双十一等京东活动日维护个人实名服务稳定（黄金流量链路核心接口tps 20万）
 
+2023-07-10 - 至今
+
+- S级项目开发中(保密)
 
 ### 专业技能
 
@@ -69,9 +70,6 @@ summary: assume
 Java: 熟练
 
 Python: 熟悉
-
-RUST：了解
-
 
 ### 教育经历
 
@@ -96,3 +94,5 @@ RUST：了解
 [NebulaResultSetBoot](https://github.com/nebula-contrib/NebulaResultSetBoot)是一个帮助开发者将Nebula客户端的查询结果转为JSON的小工具。
 
 [NebulaGraphQL](https://github.com/nebula-contrib/NebulaGraphQL)目标是为NebulaGraph支持GraphQL查询
+
+[SwitchSources](https://github.com/Dragonchu/SwitchSources)是一个帮助开发者为各类软件源切换镜像的小工具
